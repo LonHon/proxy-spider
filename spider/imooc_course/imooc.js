@@ -64,7 +64,7 @@ function getCourse(url,id){
         //console.log(new Date() - startTIme)
     })
 }
-for(var i = 9 ; i< 20; i++){
+for(var i = 1 ; i< 1000; i++){
     var url = 'http://www.imooc.com/learn';
     url = url + '/' + i;
     getCourse(url, i)

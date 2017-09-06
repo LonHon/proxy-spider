@@ -12,7 +12,7 @@ cnpm install
 use node run program
 
 
-noode文件前先在spider目录下创建data目录
+node *.js前先在spider目录下创建data目录
 imooc.js爬取慕课网课程目录，运行后在data中根据课程生成txt文档，已做简单排版
 
 ## License (MIT)
