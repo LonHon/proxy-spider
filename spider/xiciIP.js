@@ -14,7 +14,6 @@ var result = {
 
 function filltxt(txt) {
     var date = new Date().Format("yyyy-MM-dd HH-mm-ss");
-    console.log(date);
     fs.appendFile('./' + 'ip'+date+'.txt', txt, 'utf-8', function (err) {
         if (!err) {
             console.log(err);
@@ -39,11 +38,11 @@ Date.prototype.Format = function (fmt) { //author: meizz
 function ObjtoTxt(obj) {
     var text = 'type: http \r\n';
     obj.http.forEach(function (element) {
-        text += `${element.ip}:${element.port} \r\n`;
+        text += `'${element.ip}:${element.port}',\r`;
     });
     text += '\r\ntype: https \r\n';
     obj.https.forEach(function (element) {
-        text += `${element.ip}:${element.port} \r\n`;
+        text += `'${element.ip}:${element.port}',\r`;
     });
     filltxt(text);
 }

@@ -4,59 +4,123 @@ var request = require('request')
 var fs = require('fs')
 
 var url = 'http://www.zhipin.com/c101270100/d_203/?query=%E4%BA%92%E8%81%94%E7%BD%91&ka=sel-degree-203'
-
-// var result = [{
-//     position: '',//
-//     salary: '',//
-//     companyName: '',//
-//     comPerson: '',//
-//     edu: '',//
-//     year: '',
-//     label: [],//
-//     hr: '' ,//
-//     comUrl: '',
-//     detail: ''
-// }]
 var result = []
+function creatfile(obj){
+    var txt = '';
+    obj.forEach(function(item) {
+        txt += item.position +',l,'+item.salary +',l,'+item.companyName +',l,'+ item.zptime + ',l,' +item.edu[0] + ',l,'+item.edu[1] + ',l,'+item.edu[2] +'\r\n';
+    });    
+    fs.appendFile('./data/' + '成都2017-9-7.txt', txt, 'utf-8', function (err) {
+        if(!err){
+            console.log('ok~');
+        }
+    })
+}
+
 var filterHtml = function (html) {
     var $ = cheerio.load(html);
     $('.job-list li').each(function(item){
         var position = $(this).find('.info-primary').find('a').eq(0).contents().filter(function () {
             return this.nodeType == 3;//不取后代本文
         }).text();
-        var salary = $(this).find('.info-primary').find('a').eq(0).find('.red').text();
-        //var edu = $(this).find('.info-primary').find('p').eq(0).html().split('<em class="vline"></em>'); //还要区分
-        var edu = $(this).find('.info-primary').find('p').eq(0).text();
+        var salary = $(this).find('.info-primary').find('a').eq(0).find('.red').text().replace(/K/g,'000');
+        var theedu= []
+        $(this).find('.info-primary').find('p').eq(0).contents().filter(function () {
+            if(this.data){
+                theedu.push(this.data);
+            }
+            return this.nodeType == 3;//不取后代本文
+        });
         var companyName = $(this).find('.info-company').find('.name').text();
         var comPerson = $(this).find('.info-company').find('p').text();
-        
+        var zptime = $(this).find('.time').text().replace('发布于','');
         var label = '';
         $(this).find('.job-tags').find('span').each(function(itemm){
             label += $(this).text() +',';
         })
         var hr = $(this).find('.job-tags').find('p').text();
-        result.push({
-            position,
-            salary,
-            companyName,
-            comPerson,
-            label,
-            edu,
-        })
-    })  
-    console.log(result)  
+        // if(edu.indexOf('成都')>-1){
+            result.push({
+                position,
+                salary,
+                companyName,
+                comPerson,
+                label,
+                edu: theedu,
+                zptime,
+            })
+        // }
+    })
+    creatfile(result);
 }
 
+var ipacc = 0;
+var iplist=[
+    '113.128.90.168:48888',
+    '183.15.244.118:8118',
+    '183.136.104.212:8118',
+    '61.232.254.39:3128',
+    '110.73.41.183:8123',
+    '117.63.25.200:8118',
+    '117.68.195.41:808',
+    '121.31.79.181:8123',
+    '110.80.82.202:8118',
+    '106.47.174.64:80',
+    '115.155.101.188:80',
+    '111.155.116.207:8123',
+    '110.73.3.124:8123',
+    '113.128.90.215:48888',
+    '115.224.144.84:8998',
+    '112.65.39.165:8118',
+    '110.73.3.201:8123',
+    '110.73.10.80:8123',
+    '113.128.90.246:48888',
+    '113.128.90.13:48888',
+    '110.73.10.92:8123',
+    '110.73.9.193:8123',
+    '113.128.91.238:48888',
+    '61.147.50.156:8118',
+    '222.184.67.128:808',
+    '101.17.218.182:80',
+    '113.128.90.123:48888',
+    '113.128.90.34:48888',
+    '111.155.116.235:8123',
+    '182.43.254.164:4306',
+    '110.73.7.121:8123',
+    '42.224.219.102:8118',
+    '171.126.20.202:80',
+    '113.128.91.188:48888',
+    '119.190.67.51:53281',
+    '113.128.90.66:48888',
+    '111.155.116.237:8123',
+    '113.128.91.120:48888',
+    '49.70.146.211:8118',
+    '113.128.91.13:48888'
+]
+
 var getHtml = function (url) {
-    request(url, function (err, res, body) {
+    if(ipacc === iplist.length) return console.log('-----')
+    var taroption = {
+        url: url,
+        proxy: 'http://'+iplist[0],
+        timeout: 8000,
+    }
+    request(taroption, function (err, res, body) {
         if (!err && res.statusCode == 200) {
             filterHtml(body);
         } else {
-            console.log(err);
+            console.log('err');
+            ipacc++;
+            getHtml(url);
         }
     })
 }
-//getHtml(url)
+var hhh= 'http://www.zhipin.com/c101270100/d_203/?query=%E4%BA%92%E8%81%94%E7%BD%91&page='
+// for(var mark = 1; mark< 3; mark++){
+//     var uuu= hhh+ mark+'&ka=page-'+mark;
+//     getHtml(hhh);
+// }
+getHtml('http://www.zhipin.com/c101270100/d_203/?query=%E4%BA%92%E8%81%94%E7%BD%91&page=3')
 var html = `<div id="header">
 <div class="inner">
     <h1 class="logo"><a href="https://www.zhipin.com/" ka="header-home-logo" title="BOSS直聘"><span>BOSS直聘</span></a></h1>
@@ -1618,4 +1682,4 @@ var html = `<div id="header">
     </div>
 </div>`
 
-filterHtml(html);
+//filterHtml(html);

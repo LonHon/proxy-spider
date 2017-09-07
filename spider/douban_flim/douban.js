@@ -43,7 +43,7 @@ var filltxt = function (text) {
 
 var flag = 0;
 var getHtml = function (url) {
-    if (flag > 249) {
+    if (flag > 49) {
         filltxt(formatdata(data));
         return false;
     }
@@ -58,6 +58,6 @@ var getHtml = function (url) {
     })
 }
 
- for (var i = 0; i < 251; i += 25) {
+ for (var i = 0; i < 51; i += 25) {
      getHtml(url + i)
  }
