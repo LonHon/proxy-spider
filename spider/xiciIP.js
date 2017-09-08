@@ -38,11 +38,11 @@ Date.prototype.Format = function (fmt) { //author: meizz
 function ObjtoTxt(obj) {
     var text = 'type: http \r\n';
     obj.http.forEach(function (element) {
-        text += `'${element.ip}:${element.port}',\r`;
+        text += `'${element.ip}:${element.port}',\r\n`;
     });
     text += '\r\ntype: https \r\n';
     obj.https.forEach(function (element) {
-        text += `'${element.ip}:${element.port}',\r`;
+        text += `'${element.ip}:${element.port}',\r\n`;
     });
     filltxt(text);
 }
