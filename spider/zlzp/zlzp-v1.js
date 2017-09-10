@@ -2,7 +2,7 @@
  * @Author: Lonhon 
  * @Date: 2017-09-10 01:28:50 
  * @Last Modified by: github/Lonhon
- * @Last Modified time: 2017-09-10 13:35:39
+ * @Last Modified time: 2017-09-10 23:47:33
  * 使用异步爬取数据
  */
 "use strict";
@@ -11,8 +11,6 @@ var cheerio = require('cheerio')
 var request = require('request')
 var fs = require('fs')
 var Promise = require('bluebird')//虽然原生已经支持，但bluebird效率更高
-    
-
 var iplist = require('../ip_http.json')
 var spiderList=[];
 
@@ -29,7 +27,6 @@ function lhlh(url,page,ipac){
         }
     })
 } 
-
 //发送请求，成功写入文件，失败换代理
 var getHtml = function (url,ipac,ppp) {
     if (ipac >= iplist.length){        
@@ -55,7 +52,6 @@ var getHtml = function (url,ipac,ppp) {
         })
     }) 
 }
-
 //解析doc
 function filterHtml(html,p,noww){
     let res = [];
@@ -83,7 +79,6 @@ function filterHtml(html,p,noww){
     if(res.length < 60){
         return lhlh(noww[0],noww[1],noww[2]+1);
     }
-
     return creatfile(res,p);
 }
 
@@ -113,6 +108,10 @@ for(let i =1;i<31;i++){
 
 /*
 promise的目的1：把异步需要回调的东西放在异步操作外面，比如：
+
+function c(val){
+    本函数需要async的返回值val作为参数才能正确执行
+}
 function b(){  放一些异步操作，返回 Promise   }
 function a(){
     调用异步方法b
@@ -121,10 +120,6 @@ function a(){
         使用原来的回调函数就必须把c方法放在async方法中执行，当回调过多的时候函数调用就会变成a(b(c(d(e(f(...))))))，层层嵌套
         而使用Promise函数调用就可以扁平为a()->b()->c()...，特别是当理解了Promise的运行步骤后，
     })
-}
-
-function c(val){
-    本函数需要async的返回值val作为参数才能正确执行
 }
 
 
