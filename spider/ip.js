@@ -35,7 +35,7 @@ function fileterHtml(html) {
         }
     })
     ObjtoTxt(result.http,'http');   
-    //ObjtoTxt(result.https,'https');   //目前只需要http的代理，故先隐藏
+    ObjtoTxt(result.https,'https');   //目前只需要http的代理，故先隐藏
 }
 function getHtml(url) {
     request(url, function (err, res, body) {

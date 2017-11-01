@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>websocket</title>
+</head>
+<body>
+
+<h1><button id="wsstart">创建链接</button></h1>
+<br>
+<input type="text" id="txt"><br>
+<button id="send">发送</button><br>
+<input type="text" id="recv"></input>
+<script>
+    document.querySelector('#wsstart').onclick = function(){
+        console.log(123)
+        var websocket = new WebSocket("ws://localhost:8001/");
+        websocket.onopen = function(){
+            console.log(999)
+            document.getElementById("recv").value = "Connecting";
+        }
+        websocket.onclose = function(){
+            console.log(444);
+        }
+        websocket.onmessage = function(e){
+            console.log(e.data);
+            document.getElementById("recv").value = e.data;        
+        }
+        document.getElementById("send").onclick = function(){
+            var txt = document.getElementById("txt").value;
+        }
+
+        setInterval(()=>{
+            websocket.send(new Date());
+        },1000)
+        setTimeout(function() {
+            websocket.close();
+        }, 3000);
+    }
+</script>
+</body>
+</html>

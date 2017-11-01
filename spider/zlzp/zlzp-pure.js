@@ -24,7 +24,7 @@ var getHtml = function (url,ipac,ppp) {
         };
         request(prox, function (err, res, body) {
             if (err) {
-                reject(url)//失败，回传当前请求的页面url
+                reject(url,true)//失败，回传当前请求的页面url
             } else {
                 resolve(body, url)//成功回传html和url
             }
@@ -74,7 +74,7 @@ function lhlh(url,page,ipac){
         let noww= [url,page,ipac]
         filterHtml(html,page,noww);
     })
-    .catch((url,type = true)=>{
+    .catch((url,type)=>{
         if(type){
             ipac += 1;
             lhlh(url,page,ipac);
@@ -160,10 +160,12 @@ function lhlh(url,page,ipac){
         if(type){
             ipac += 1;
             lhlh(url,page,ipac);
+        }else{
+            throw('done');
         }
     })
 } 
-var target = 'http://sou.zhaopin.com/jobs/searchresult.ashx?jl=%e6%88%90%e9%83%bd&kw=web%e5%89%8d%e7%ab%af&isadv=0&sg=8cd66893b0d14261bde1e33b154456f2&p=';
+var target = 'http://sou.zhaopin.com/jobs/searchresult.ashx?jl=%E6%88%90%E9%83%BD&kw=web%E5%89%8D%E7%AB%AF&isadv=0&sg=aa6af0fa95f94bb08c2945e71222b627&p=';
 let ipacc = 0;
 var startTime = Date.parse(new Date());
 for(let i=1; i<31; i++){

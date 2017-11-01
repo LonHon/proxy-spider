@@ -22,7 +22,6 @@ function creatfile(obj) {
         fs.appendFile('./' + 'boss.txt', txt, 'utf-8', function (err) {
             if (!err) {
                 resolve()
-                //console.log('ok~');
             }
         })
 
@@ -71,16 +70,19 @@ var filterHtml = function (html) {
 
 //发送请求，成功写入文件，失败换代理
 var getHtml = function (url) {
-    if (ipacc >= iplist.length) {
-        ipacc = 0;
-        return console.log('failed');
-    }
+    return new Promise(function(resolve,reject){
+        if (ipacc >= iplist.length) {
+            console.log('ip all failed');
+            reject(false)
+        }
+
+    })
     //设置代理
     let prox = {
         url: url,
         proxy: 'http://' + iplist[ipacc],
         timeout: 5000,
-    }    
+    }
     request(prox, function (err, res, body) {
         if (err) {
             ipacc++;
@@ -92,8 +94,6 @@ var getHtml = function (url) {
             filterHtml(body);
         }
     })
-    // return new Promise(function(resolve,reject){
-    // })
 }
 
 var urlMoudle = 'http://www.zhipin.com/c101270100/d_203/?query=%E4%BA%92%E8%81%94%E7%BD%91&page='

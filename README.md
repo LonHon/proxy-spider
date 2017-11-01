@@ -1,29 +1,17 @@
-# mobile-vue
+# vuedemo
+> 此项目用于node学习，目前包括爬虫、服务器搭建
 
-> a vue.js mobile project,
-
-## Build Setup
-
+## 安装步骤
 ``` bash
-# install dependencies
-cnpm install
+### 安装依赖包
+npm install
 
-#then
-use node run program
+### 启动项目 
+node 对应爬虫文件
+## 部分效果图预览
 
+### ip池抓取
+![ip池抓取](https://raw.githubusercontent.com/LonHon/some-resource/master/node-img/2.png)
 
-node *.js前先在spider目录下创建data目录
-imooc.js爬取慕课网课程目录，运行后在data中根据课程生成txt文档，已做简单排版
-
-## License (MIT)
-
-Copyright (c) github/LonHon
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-<!--
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader). -->
+### 运行爬虫
+![运行爬虫](https://raw.githubusercontent.com/LonHon/some-resource/master/node-img/1.png)
