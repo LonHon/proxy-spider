@@ -2,6 +2,7 @@
 node_modules/
 spider/dist/
 data/
+tieba/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
