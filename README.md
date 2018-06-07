@@ -1,6 +1,8 @@
 # vuedemo
 > 此项目用于node学习，目前包括爬虫、服务器搭建
 
+爬虫说明地址：https://segmentfault.com/a/1190000011113054
+
 ## 安装步骤
 ``` bash
 ### 安装依赖包
